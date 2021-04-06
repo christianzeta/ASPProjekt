@@ -1,10 +1,28 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity;
+@using ASPProjekt.Models;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>This website was made for people to easily be able to join fun events and keep track of them.</p>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Register</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-secondary">Log In</a>
+    }
 </div>

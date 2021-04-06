@@ -28,6 +28,7 @@ namespace ASPProjekt.Data
                 UserName = "test_user",
                 Email = "test@hotmail.com",
             };
+            
             await userManager.CreateAsync(user, "Passw0rd!");
 
             await SaveChangesAsync();
