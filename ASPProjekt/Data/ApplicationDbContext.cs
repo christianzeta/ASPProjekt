@@ -17,7 +17,7 @@ namespace ASPProjekt.Data
         }
 
         public DbSet<Event> Events { get; set; }
-
+        
         public async Task ResetAndSeedAsync(UserManager<User> userManager)
         {
             await Database.EnsureDeletedAsync();

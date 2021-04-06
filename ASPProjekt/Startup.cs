@@ -32,7 +32,7 @@ namespace ASPProjekt
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
         }
