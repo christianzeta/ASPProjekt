@@ -13,5 +13,25 @@ namespace ASPProjekt.Data
             : base(options)
         {
         }
+
+        public DbSet<Event> Events { get; set; }
+
+        public async Task ResetAndSeedAsync(UserManager<User> userManager)
+        {
+            await Database.EnsureDeletedAsync();
+            await Database.EnsureCreatedAsync();
+
+            User user = new User()
+            {
+                UserName = "test_user",
+                Email = "test@hotmail.com",
+            };
+            await userManager.CreateAsync(user, "Passw0rd!");
+
+            await AddRangeAsync(user);
+
+            await SaveChangesAsync();
+        }
+        
     }
 }
