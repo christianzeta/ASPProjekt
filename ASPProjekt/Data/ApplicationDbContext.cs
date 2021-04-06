@@ -1,9 +1,11 @@
 ﻿using ASPProjekt.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ASPProjekt.Data
 {
@@ -27,8 +29,6 @@ namespace ASPProjekt.Data
                 Email = "test@hotmail.com",
             };
             await userManager.CreateAsync(user, "Passw0rd!");
-
-            await AddRangeAsync(user);
 
             await SaveChangesAsync();
         }
