@@ -18,20 +18,24 @@ namespace ASPProjekt.Data
 
         public DbSet<Event> Events { get; set; }
         
-        public async Task ResetAndSeedAsync(UserManager<User> userManager)
+        public async Task ResetAndSeedAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             await Database.EnsureDeletedAsync();
             await Database.EnsureCreatedAsync();
 
             User user = new User()
             {
-                UserName = "test_user",
-                Email = "test@hotmail.com",
+                UserName = "admin@admin.com",
+                Email = "admin@admin.com",
             };
             
-            await userManager.CreateAsync(user, "Passw0rd!");
-
+            await userManager.CreateAsync(user, "Passw0rd!!");
+            
+            await roleManager.CreateAsync(new IdentityRole("admin"));
+            await userManager.AddToRoleAsync(user, "admin");
+            
             await SaveChangesAsync();
+            
         }
         
     }
