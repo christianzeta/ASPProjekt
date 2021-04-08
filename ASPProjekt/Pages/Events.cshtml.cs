@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ASPProjekt.Data;
 using ASPProjekt.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPProjekt.Pages
 {
