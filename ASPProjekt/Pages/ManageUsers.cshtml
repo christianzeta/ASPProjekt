@@ -5,3 +5,44 @@
 }
 
 <h1>Manage Users</h1>
+
+@foreach (var item in Model.Users)
+{
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users[0].Email)
+            </th>
+            <th>
+                Is Organizer
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    @foreach (var item in Model.Users)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @{ await Model.IsOrganizerAsync(item); }
+                <input asp-for="IsOrganizer"/>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>

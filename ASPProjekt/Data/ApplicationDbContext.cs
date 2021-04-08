@@ -23,17 +23,25 @@ namespace ASPProjekt.Data
             await Database.EnsureDeletedAsync();
             await Database.EnsureCreatedAsync();
 
-            User user = new User()
+            User admin = new User()
             {
-                UserName = "admin@admin.com",
-                Email = "admin@admin.com",
+                UserName = "admin@test.com",
+                Email = "admin@test.com",
             };
-            
-            await userManager.CreateAsync(user, "Passw0rd!!");
-            
+            User organizer = new User()
+            {
+                UserName = "organizer@test.com",
+                Email = "organizer@test.com",
+            };
+
+            await userManager.CreateAsync(admin, "Passw0rd!");
+            await userManager.CreateAsync(organizer, "Passw0rd!");
+
             await roleManager.CreateAsync(new IdentityRole("admin"));
-            await userManager.AddToRoleAsync(user, "admin");
-            
+            await roleManager.CreateAsync(new IdentityRole("organizer"));
+            await userManager.AddToRoleAsync(admin, "admin");
+            await userManager.AddToRoleAsync(organizer, "organizer");
+
             await SaveChangesAsync();
             
         }
