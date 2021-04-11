@@ -18,7 +18,11 @@ namespace ASPProjekt.Data
 
         public DbSet<Event> Events { get; set; }
         
-        public async Task ResetAndSeedAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public async Task ResetAndSeedAsync(
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context
+            )
         {
             await Database.EnsureDeletedAsync();
             await Database.EnsureCreatedAsync();
@@ -39,6 +43,19 @@ namespace ASPProjekt.Data
                 Email = "organizer@test.com",
             };
 
+            Event[] events = new Event[]
+            {
+                new Event()
+                {
+                    Title="Pokémon hunting",
+                    Description="A once in a lifetime opportunity to catch some pokermans!",
+                    Place="Safari Zone",
+                    Address="Team Rocket Hideout 666",
+                    Date= DateTime.Now.AddDays(120),
+                    SpotsAvailable= 10,
+                }
+            };
+
 
             await userManager.CreateAsync(admin, "Passw0rd!");
             await userManager.CreateAsync(Attendee, "Passw0rd!");
@@ -53,6 +70,8 @@ namespace ASPProjekt.Data
             await userManager.AddToRoleAsync(admin, "admin");
             await userManager.AddToRoleAsync(Attendee, "attendee");
             await userManager.AddToRoleAsync(organizer, "organizer");
+
+            await context.AddRangeAsync(events);
 
             await SaveChangesAsync();
             
