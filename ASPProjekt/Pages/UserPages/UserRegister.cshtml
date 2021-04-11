@@ -4,9 +4,20 @@
 }
 
 <h2>Register</h2>
+<br />
 
 <form method="post">
+    <p>Enter a new User Name:</p>
     <input asp-for="NewUser.userName" />
+    <br />
+    <br />
+    <p>Choose your password:</p>
     <input asp-for="NewUser.password" />
-    <input type="submit" />
+    <br />
+    <br />
+    <input type="submit" value="Register" class="btn btn-secondary" />
+    <br />
+    <br />
+    <p style="color:red;">Already have an account? Login:</p>
+    <a asp-area="" asp-page="UserPages/UserLogin" class="btn btn-secondary">Register</a>
 </form>
