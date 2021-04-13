@@ -42,13 +42,11 @@ namespace ASPProjekt.Data
 
             await userManager.CreateAsync(admin, "Passw0rd!");
             await userManager.CreateAsync(Attendee, "Passw0rd!");
-
             await userManager.CreateAsync(organizer, "Passw0rd!");
 
             await roleManager.CreateAsync(new IdentityRole("admin"));
             await roleManager.CreateAsync(new IdentityRole("organizer"));
             await roleManager.CreateAsync(new IdentityRole("attendee"));
-
 
             await userManager.AddToRoleAsync(admin, "admin");
             await userManager.AddToRoleAsync(Attendee, "attendee");

@@ -17,7 +17,6 @@ namespace ASPProjekt.Pages
         private readonly UserManager<User> _userManager;
         public List<User> Users { get; set; }
         public bool IsOrganizer { get; set; } 
-        public string UserName { get; set; }
 
         public ManageUsersModel(UserManager<User> userManager)
         {
@@ -33,7 +32,7 @@ namespace ASPProjekt.Pages
         {
             Users = await _userManager.Users.ToListAsync();
             var user = await _userManager.FindByNameAsync(userName);
-            UserName = userName;
+
             if (await _userManager.IsInRoleAsync(user, "organizer"))
             {
                 await _userManager.RemoveFromRoleAsync(user, "organizer");
