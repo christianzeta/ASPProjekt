@@ -30,6 +30,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/ManageUsers">Manage Users</a>
                             </li>
                         }
+                        @if (User.IsInRole("organizer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/CreateEvent">Add Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/OrganizerEvents">Organizer events</a>
+                            </li>
+                        }
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
