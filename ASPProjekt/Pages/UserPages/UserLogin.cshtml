@@ -1,0 +1,23 @@
+﻿@page
+@model ASPProjekt.Pages.UserPages.UserLoginModel
+@{
+}
+
+<h2>Log in</h2>
+<br />
+
+<form method="post">
+    <p>User Name:</p>
+    <input asp-for="Login.userName" />
+    <br />
+    <br />
+    <p>Password:</p>
+    <input asp-for="Login.password" />
+    <br />
+    <br />
+    <input type="submit" value="Log In" class="btn btn-secondary" />
+    <br />
+    <br />
+    <p style="color:red;">Don't have an account? Register:</p>
+    <a asp-area="" asp-page="UserPages/UserRegister" class="btn btn-secondary">Register</a>
+</form>
