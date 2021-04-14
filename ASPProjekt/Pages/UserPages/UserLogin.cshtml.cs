@@ -6,16 +6,20 @@ using ASPProjekt.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ASPProjekt.Data;
 
 namespace ASPProjekt.Pages.UserPages
 {
     public class UserLoginModel : PageModel
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserLoginModel(UserManager<User> userManager)
+        public UserLoginModel(UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [BindProperty]
@@ -23,18 +27,14 @@ namespace ASPProjekt.Pages.UserPages
 
         public class LoginForm
         {
-            public string userName { get; set; }
-            public string password { get; set; }
+            public string UserName { get; set; }
+            public string Password { get; set; }
         }
 
-        /*public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            User newUser = new User()
-            {
-                UserName = NewUser.userName,
-            };
-
-            var result = await _userManager.CreateAsync(newUser, NewUser.password);
+            var result = await _signInManager
+                 .PasswordSignInAsync(Login.UserName, Login.Password, isPersistent: true, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
@@ -42,6 +42,6 @@ namespace ASPProjekt.Pages.UserPages
             }
 
             return Page();
-        }*/
+        }
     }
 }

@@ -32,9 +32,22 @@ namespace ASPProjekt
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<User>()
+            services.AddDefaultIdentity<User>(options =>
+            {
+            options.User.RequireUniqueEmail = true;
+            })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+               options.AccessDeniedPath = "/UserPages/Login";
+               options.Cookie.HttpOnly = true;
+               options.SlidingExpiration = true;
+               options.ExpireTimeSpan = TimeSpan.FromDays(5);
+
+            });
+
             services.AddRazorPages();
         }
 

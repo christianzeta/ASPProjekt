@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASPProjekt.Migrations
 {
-    public partial class initial : Migration
+    public partial class initial_model : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
