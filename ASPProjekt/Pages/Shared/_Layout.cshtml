@@ -24,21 +24,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Events">Events</a>
                         </li>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/ManageUsers">Manage Users</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("organizer"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/CreateEvent">Add Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/OrganizerEvents">Organizer events</a>
-                            </li>
-                        }
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -51,7 +36,18 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                     <a asp-area="" asp-page="/UserPages/UserLogout" class="btn btn-secondary">Logout</a>
+                    @if (User.IsInRole("organizer"))
+                    {
+                        <a style="margin-right: 5px;"class="btn btn-secondary" asp-page="/CreateEvent">Add Event</a>
+                        <a style="margin-right: 5px;" class="btn btn-secondary" asp-page="/OrganizerEvents">Organizer events</a>                 
+                    }
+
+                    @if (User.IsInRole("admin"))
+                    { 
+                        <a style="margin-right: 5px;" class="btn btn-secondary" asp-page="/ManageUsers">Manage Users</a>     
+                    }
+
+                    <a asp-area="" asp-page="/UserPages/UserLogout" class="btn btn-secondary">Logout</a>
                 }
                 else
                 {
