@@ -11,7 +11,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <p>
-        <a asp-page="/JoinEvent" class="btn btn-secondary">Join</a>
+        
     </p>
 }
 else
@@ -68,7 +68,9 @@ else
                     @Html.DisplayFor(modelItem => item.SpotsAvailable)
                 </td>
                 <td>
-                    <input type="checkbox" />
+                    <form method="post">
+                        <a asp-page="/JoinEvent" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary">Join</a>
+                    </form>
                 </td>
             </tr>
         }

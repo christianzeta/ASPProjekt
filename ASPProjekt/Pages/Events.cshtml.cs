@@ -13,9 +13,9 @@ namespace ASPProjekt.Pages
 {
     public class EventsModel : PageModel
     {
-        private readonly ASPProjekt.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EventsModel(ASPProjekt.Data.ApplicationDbContext context)
+        public EventsModel(ApplicationDbContext context)
         {
             _context = context;
         }

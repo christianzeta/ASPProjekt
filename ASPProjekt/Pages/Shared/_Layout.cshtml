@@ -39,6 +39,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/OrganizerEvents">Organizer events</a>
                             </li>
                         }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/JoinEvent">My Events</a>
+                            </li>
+                        }
 
                     </ul>
                 </div>

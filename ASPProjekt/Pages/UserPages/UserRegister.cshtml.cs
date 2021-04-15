@@ -16,13 +16,16 @@ namespace ASPProjekt.Pages.UserPages
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _rolemanager;
 
-        public UserRegisterModel(UserManager<User> userManager, 
-            ApplicationDbContext context, SignInManager<User> signInManager)
+        public UserRegisterModel(UserManager<User> userManager,
+            ApplicationDbContext context, SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _context = context;
+            _rolemanager = roleManager;
         }
 
         [BindProperty]
@@ -46,18 +49,15 @@ namespace ASPProjekt.Pages.UserPages
             
             var result = await _userManager.CreateAsync(newUser, NewUser.password);
 
-            /*if(result == null)
-            {
-                await _userManager.CreateAsync(newUser, );
-            }*/
-
             await _context.AddAsync(newUser);
+            await _userManager.AddToRoleAsync(newUser, "attendee");
             await _context.SaveChangesAsync();
+            
 
 
             if (result.Succeeded)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("UserLogin");
             }
 
             return Page();
