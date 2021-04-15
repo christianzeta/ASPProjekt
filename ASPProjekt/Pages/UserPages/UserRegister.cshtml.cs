@@ -13,11 +13,14 @@ namespace ASPProjekt.Pages.UserPages
 {
     public class UserRegisterModel : PageModel
     {
+        private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public UserRegisterModel(UserManager<User> userManager, ApplicationDbContext context)
+        public UserRegisterModel(UserManager<User> userManager, 
+            ApplicationDbContext context, SignInManager<User> signInManager)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
             _context = context;
         }
@@ -40,8 +43,17 @@ namespace ASPProjekt.Pages.UserPages
                     
             };
 
+            
             var result = await _userManager.CreateAsync(newUser, NewUser.password);
-                
+
+            /*if(result == null)
+            {
+                await _userManager.CreateAsync(newUser, );
+            }*/
+
+            await _context.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+
 
             if (result.Succeeded)
             {
