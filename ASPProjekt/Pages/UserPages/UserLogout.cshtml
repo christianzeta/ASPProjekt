@@ -3,5 +3,15 @@
 @{
 }
 
-<h2>Successfully logged out! Log in anytime!</h2>
-<br />
+@if (User.Identity.IsAuthenticated)
+{
+    <form method="post">
+        <input type="submit" value="Log Out" class="btn btn-secondary" />
+    </form>
+}
+else
+{
+    <h3>Successfully logged out! Log in anytime!</h3>
+}
+
+

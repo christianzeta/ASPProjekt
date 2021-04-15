@@ -33,15 +33,15 @@ namespace ASPProjekt.Pages.UserPages
 
         public async Task<IActionResult> OnPost()
         {
+            
             User newUser = new User()
             {
                 UserName = NewUser.userName,
-
+                    
             };
 
             var result = await _userManager.CreateAsync(newUser, NewUser.password);
-
-            
+                
 
             if (result.Succeeded)
             {
@@ -49,6 +49,7 @@ namespace ASPProjekt.Pages.UserPages
             }
 
             return Page();
+            
         }
     } 
 }

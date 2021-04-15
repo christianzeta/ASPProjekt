@@ -14,12 +14,14 @@ namespace ASPProjekt.Pages.UserPages
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ApplicationDbContext _context;
 
         public UserLoginModel(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager, ApplicationDbContext context)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
+            _userManager = userManager;
+            _context = context;
         }
 
         [BindProperty]

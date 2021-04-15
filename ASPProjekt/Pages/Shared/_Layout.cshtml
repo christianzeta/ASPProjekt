@@ -39,19 +39,18 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/OrganizerEvents">Organizer events</a>
                             </li>
                         }
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
-                            </li>
-                        }
+
                     </ul>
                 </div>
 
-                @if(User.Identity.IsAuthenticated)
-                 {
-                    @("style=background-color:lightgreen!important;")
-                 }
+                @if (User.Identity.IsAuthenticated)
+                {
+                     <a asp-area="" asp-page="/UserPages/UserLogout" class="btn btn-secondary">Logout</a>
+                }
+                else
+                {
+                    <a asp-area="" asp-page="/UserPages/UserLogin" class="btn btn-secondary">Login</a>
+                }
 
             </div>
         </nav>
