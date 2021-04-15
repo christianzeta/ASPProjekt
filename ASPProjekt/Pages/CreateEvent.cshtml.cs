@@ -46,7 +46,6 @@ namespace ASPProjekt.Pages
                 return Page();
             }
 
-            //var userId = _userManager.GetUserId(User);
             var username = User.Identity.Name;
             user = await _userManager.FindByNameAsync(username);
             Event.Organizer = user;

@@ -32,8 +32,8 @@ namespace ASPProjekt.Pages
         public async Task OnGetAsync()
         {
             var username = User.Identity.Name;
-            user = await _userManager.FindByNameAsync(username);
-            Event = await _context.Events.Where(o => o.Organizer == user).ToListAsync();
+            user = await _context.Users.Where(u => u.UserName == username).Include(h => h.HostedEvents).FirstOrDefaultAsync();
+            Event =  user.HostedEvents.ToList();
         }
     }
 }
