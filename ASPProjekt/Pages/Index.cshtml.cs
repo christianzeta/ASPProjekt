@@ -31,7 +31,7 @@ namespace ASPProjekt.Pages
 
         public async Task OnGetAsync()
         {
-           //await _context.ResetAndSeedAsync(_userManager, _roleManager, _context);
+           await _context.ResetAndSeedAsync(_userManager, _roleManager, _context);
         }
     }
 }
