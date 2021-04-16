@@ -5,10 +5,9 @@
     ViewData["Title"] = "JoinEvent";
 }
 
-<h1>Joined Event(s)</h1>
+<h1>Join Event</h1>
 
 <div>
-    <h4>My Event(s)</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -50,5 +49,15 @@
     </dl>
 </div>
 <div>
-    <a asp-page="/Events" class="btn btn-secondary">Check Events to see if new events have been announced!</a>
+    @if (Model.Submitted)
+    {
+        <p>Thank you for joining this event</p>
+    }
+    else
+    {
+        <form method="post">
+            <button type="submit"> Join Event </button>
+        </form>
+    }
+
 </div>

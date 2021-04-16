@@ -7,23 +7,32 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ASPProjekt.Data;
 using ASPProjekt.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASPProjekt.Pages
 {
+    [Authorize]
     public class MyEventsModel : PageModel
     {
-        private readonly ASPProjekt.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public MyEventsModel(ASPProjekt.Data.ApplicationDbContext context)
+
+        public MyEventsModel(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IList<Event> Event { get;set; }
+        public User user { get; set; }
 
         public async Task OnGetAsync()
         {
-            Event = await _context.Events.ToListAsync();
+            var username = User.Identity.Name;
+            user = await _context.Users.Where(u => u.UserName == username).Include(h => h.JoinedEvents).FirstOrDefaultAsync();
+            Event = user.JoinedEvents;
         }
     }
 }

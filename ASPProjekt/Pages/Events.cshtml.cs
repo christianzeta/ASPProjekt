@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ASPProjekt.Pages
 {
+    [Authorize]
     public class EventsModel : PageModel
     {
         private readonly ApplicationDbContext _context;

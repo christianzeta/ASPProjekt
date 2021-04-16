@@ -24,6 +24,7 @@ namespace ASPProjekt.Pages
         }
 
         public Event Event { get; set; }
+        public bool Submitted { get; set; } = false;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -34,10 +35,6 @@ namespace ASPProjekt.Pages
 
             Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Event == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
 
@@ -48,30 +45,25 @@ namespace ASPProjekt.Pages
                 return NotFound();
             }
 
-            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Event == null)
-            {
-                return NotFound();
-            }
-
-            // Vad är user id på den som ska gå med?
-            var userId = _userManager.GetUserId(User);
             // Vem är det som ska gå med?
+            var username = User.Identity.Name;
             var user = await _context.Users
-                .Where(u => u.Id == userId)
-                .Include(u => u.JoinedEvents)
+                .Where(u => u.UserName == username)
+                .Include(h => h.JoinedEvents)
                 .FirstOrDefaultAsync();
+
 
             if (!user.JoinedEvents.Contains(Event))
             {
                 // Om vi har en användare och ett event så är det
                 // enkelt att lägga till eventet till användarens
                 // lista på planerade events.
+                Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
                 user.JoinedEvents.Add(Event);
                 await _context.SaveChangesAsync();
             }
 
+            Submitted = true;
             return Page();
         }
     }
